@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.post.db.mapper.UserMapper">
+    <insert id="save" parameterType="User" useGeneratedKeys="true" keyProperty="id">
+         insert into p_user values (#{id},#{userName},#{passwd},#{phoneNumber},#{category},#{studentNumber})
+    </insert>
+
+
+    <select id="findByPhone" parameterType="String" resultType="User">
+        select id,userName,passwd,phoneNumber,category,studentNumber from p_user where phoneNumber=#{phoneNumber}
+    </select>
+
+</mapper>

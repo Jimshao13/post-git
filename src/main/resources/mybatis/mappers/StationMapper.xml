@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.post.db.mapper.StationMapper">
+    <!--查询所有驿站-->
+    <select id="findAll" resultType="Station" >
+        select id,stationName,capacity,location,address,contactPerson,contactNumber from p_station
+    </select>
+
+    <!--分页查询驿站-->
+    <select id="findByPage" resultType="Station">
+          select * from p_station limit #{start},#{rows}
+    </select>
+
+    <!--查询总条数-->
+    <select id="findTotals" resultType="Long">
+        select count(id) from p_station
+    </select>
+
+    <!--添加驿站-->
+    <insert id="save" parameterType="Station" useGeneratedKeys="true" keyProperty="id">
+        insert into p_station(id,stationName,longitude,latitude,capacity,areaId,address,contactPerson,contactNumber)
+        values(#{id},#{stationName},#{longitude},#{latitude},#{capacity},#{areaId},#{address},#{contactPerson},#{contactNumber})
+    </insert>
+
+    <!--根据id删除驿站信息-->
+    <delete id="delete" parameterType="String">
+        delete from p_station where id=#{id}
+    </delete>
+
+    <!--更新驿站信息-->
+    <update id="update" parameterType="Station">
+        update p_station
+        set stationName=#{stationName},longitude=#{longitude},latitude=#{latitude},capacity=#{capacity},areaId=#{areaId},address=#{address}
+        where id=#{id}
+    </update>
+
+
+
+</mapper>
