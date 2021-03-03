@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.post.db.mapper.OrderMapper">
+    <!--查询所有订单-->
+    <select id="findAll" resultType="Order">
+        select p_order.id,sender,senderAddress,senderPhone,receiver,receiverPhone,receiverAddress,expressName,name as categoryName,orderTime
+        from p_order,yinshe,p_express
+        where expressCompany=p_express.e_id AND category=yinshe.id
+    </select>
+
+    <!--添加订单-->
+    <insert id="save" parameterType="Order" keyProperty="id" useGeneratedKeys="true">
+        insert into p_order values (#{id},#{sender},#{senderAddress},#{senderPhone},#{receiver},#{receiverAddress},
+        #{receiverPhone},#{expressCompany},#{category},#{orderTime})
+    </insert>
+
+    <!--删除订单-->
+    <delete id="delete" parameterType="id">
+        delete from p_order where id=#{id}
+    </delete>
+
+    <!--修改订单-->
+    <update id="update" parameterType="Order">
+        update p_order set sender=#{sender},senderAddress=#{senderAddress},senderPhone=#{senderPhone},receiver=#{receiver},receiverPhone=#{receiverPhone},
+        receiverAddress=#{receiverAddress},category=#{category}
+    </update>
+
+
+</mapper>

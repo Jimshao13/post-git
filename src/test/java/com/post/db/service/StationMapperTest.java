@@ -1,4 +1,4 @@
-package com.post.db.mapper;
+package com.post.db.service;
 
 import com.post.db.entity.Station;
 import com.post.db.service.StationService;
