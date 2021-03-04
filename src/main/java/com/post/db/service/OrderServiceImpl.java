@@ -38,4 +38,9 @@ public class OrderServiceImpl implements OrderService{
     public List<Order> findAll() {
         return orderMapper.findAll();
     }
+
+    @Override
+    public Integer orderNum() {
+        return orderMapper.orderNum();
+    }
 }

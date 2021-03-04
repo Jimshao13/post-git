@@ -21,4 +21,7 @@ public interface OrderService {
 
     //查看所有订单
     List<Order> findAll();
+
+    //查看今日揽件量
+    Integer orderNum();
 }

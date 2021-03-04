@@ -20,8 +20,8 @@
 
     <!--添加驿站-->
     <insert id="save" parameterType="Station" useGeneratedKeys="true" keyProperty="id">
-        insert into p_station(id,stationName,longitude,latitude,capacity,areaId,address,contactPerson,contactNumber)
-        values(#{id},#{stationName},#{longitude},#{latitude},#{capacity},#{areaId},#{address},#{contactPerson},#{contactNumber})
+        insert into p_station(id,stationName,longtitude,latitude,capacity,areaId,location,address,contactPerson,contactNumber)
+        values(#{id},#{stationName},#{longtitude},#{latitude},#{capacity},#{areaId},#{location},#{address},#{contactPerson},#{contactNumber})
     </insert>
 
     <!--根据id删除驿站信息-->
@@ -32,10 +32,9 @@
     <!--更新驿站信息-->
     <update id="update" parameterType="Station">
         update p_station
-        set stationName=#{stationName},longitude=#{longitude},latitude=#{latitude},capacity=#{capacity},areaId=#{areaId},address=#{address}
+        set stationName=#{stationName},longtitude=#{longtitude},latitude=#{latitude},capacity=#{capacity},areaId=#{areaId},
+        location=#{location},address=#{address}
         where id=#{id}
     </update>
-
-
 
 </mapper>

@@ -1,14 +1,21 @@
-package com.post.db.service;
+package com.post.db.mapper;
 
 import com.post.db.entity.Order;
+import com.post.db.service.OrderService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.List;
 
+import static org.junit.jupiter.api.Assertions.*;
+
+/**
+ * @author 邵鹏泽
+ * @create 2021-03-15:28
+ */
 @SpringBootTest
-public class OrderServiceTest {
+class OrderMapperTest {
     @Autowired
     OrderService orderService;
 
@@ -16,18 +23,20 @@ public class OrderServiceTest {
     void save() {
         Order order=new Order();
         order.setSender("小明");
+        order.setSenderAddress("南京市");
+        order.setSenderPhone("18856723432");
         order.setReceiver("小红");
-        order.setSenderAddress("江苏省连云港市赣榆区");
-        order.setReceiverAddress("江苏省南通市幸福花园小区");
-        order.setSenderPhone("15240326617");
-        order.setReceiverPhone("12345678213");
+        order.setReceiverPhone("12345326732");
+        order.setReceiverAddress("南通市");
+        order.setCategory(502);
         order.setExpressCompany(1);
-        order.setCategory(501);
         orderService.save(order);
     }
 
+
     @Test
     void delete() {
+        orderService.delete("3");
     }
 
     @Test
@@ -38,5 +47,11 @@ public class OrderServiceTest {
     void findAll() {
         List<Order> orders = orderService.findAll();
         System.out.println(orders);
+    }
+
+    @Test
+    void orderNum(){
+        Integer integer = orderService.orderNum();
+        System.out.println(integer);
     }
 }

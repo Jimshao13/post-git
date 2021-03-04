@@ -13,32 +13,30 @@
 
     <!--用户或管理人员根据手机号查询用户全部待取快递,此时无出库时间-->
     <select id="findByPhoneUnToken" parameterType="String" resultType="Package">
-        select p_package.id, packId,receiverPhone,stationName,putInTime,pickUpCode,s_status,m_status,expressName,path
-        from p_package,p_status,p_express,p_station,m_status
-        where receiverPhone=#{receiverPhone} AND status='1' AND p_package.status=p_status.s_id
-        AND p_package.expressCompany=p_express.e_id AND station=p_station.id AND p_package.msgStatus=m_status.m_id
+        select p_package.id,p_package.packId,receiverPhone,stationName,putInTime,pickUpCode,name as s_status,m_status,expressName,path
+        from p_package,yinshe,p_express,p_station,m_status
+        where receiverPhone=#{receiverPhone} AND status='101' AND p_package.status=yinshe.id
+        AND p_package.expressCompany=p_express.e_id AND p_package.station=p_station.id AND p_package.msgStatus=m_status.m_id
     </select>
 
     <!--用户或管理人员根据手机号查询用户过去三个月的已取快递,-->
     <select id="findByPhoneToken" parameterType="String" resultType="Package">
         select p_package.id,p_package.packId as packId,receiverPhone,stationName,path,putInTime,pickUpCode,
-        package_out_log.curDate as pickUpTime,s_status,m_status,expressName
-        from p_package,p_status,m_status,package_out_log,p_express,p_station
+        package_out_log.curDate as pickUpTime,name as s_status,m_status,expressName
+        from p_package,yinshe,m_status,package_out_log,p_express,p_station
         where package_out_log.curDate > DATE_SUB(CURDATE(), INTERVAL 3 MONTH)
-        AND receiverPhone=#{receiverPhone} AND status='2' AND p_package.status=p_status.s_id And p_package.packId=package_out_log.packId  AND p_package.expressCompany=p_express.e_id
-        AND station=p_station.id AND p_package.msgStatus=m_status.m_id
-        AND p_package.expressCompany=p_express.e_id
+        AND receiverPhone=#{receiverPhone} AND p_package.status='102' AND p_package.status=yinshe.id And p_package.packId=package_out_log.packId  AND p_package.expressCompany=p_express.e_id
+        AND p_package.station=p_station.id AND p_package.msgStatus=m_status.m_id
     </select>
 
-    
 
     <!--用户或管理人员根据快递单号查询快递-->
     <select id="findByPackId" parameterType="String" resultType="Package">
-         select p_package.id,p_package.packId as packId,receiverPhone,station,stationName,putInTime,package_out_log.curDate as pickUpTime,pickUpCode,status,s_status,
+         select p_package.id,p_package.packId as packId,receiverPhone,stationName,putInTime,pickUpCode,status,name as s_status,
          expressCompany,expressName,path,msgStatus,m_status
-         from p_package,p_status,p_express,m_status,package_out_log,p_station
-         where p_package.packId=package_out_log.packId AND p_package.status=p_status.s_id AND p_package.msgStatus=m_status.m_id
-         AND p_package.packId=#{packId} AND p_package.expressCompany=p_express.e_id AND station=p_station.id
+         from p_package,yinshe,p_express,m_status,p_station
+         where  p_package.status=yinshe.id AND p_package.msgStatus=m_status.m_id
+         AND p_package.packId=#{packId} AND p_package.expressCompany=p_express.e_id AND p_package.station=p_station.id
     </select>
 
 
@@ -51,46 +49,49 @@
 
     <!--管理人员查询驿站待取件，此时出库时间为空,null-->
     <select id="findUnToken" resultType="Package">
-         select * from p_package,p_status,m_status,p_express,p_station
-         where  status='1' AND p_package.status=p_status.s_id  AND p_package.msgStatus=m_status.m_id
-         AND p_package.expressCompany=p_express.e_id AND station=p_station.id
+         select p_package.id,packId,receiverPhone,stationName,putInTime,pickUpCode,name as s_status,m_status,expressName,path
+         from p_package,yinshe,m_status,p_express,p_station
+         where  status='101' AND p_package.status=yinshe.id  AND p_package.msgStatus=m_status.m_id
+         AND p_package.expressCompany=p_express.e_id AND p_package.station=p_station.id
     </select>
 
     <!--查询今日的已取件,此时可以看到快递的出库时间-->
     <select id="findToken" resultType="Package">
-         select p_package.id,p_package.packId as packId,receiverPhone,station,stationName,path,putInTime,pickUpCode,
+         select p_package.id,p_package.packId as packId,receiverPhone,stationName,path,putInTime,pickUpCode,
          package_out_log.curDate as pickUpTime,status,
-         s_status,msgStatus,m_status,expressCompany,expressName
-         from p_package,p_status,m_status,p_express,p_station,package_out_log
+         name as s_status,msgStatus,m_status,expressCompany,expressName
+         from p_package,yinshe,m_status,p_express,p_station,package_out_log
          where TO_DAYS(package_out_log.curDate)=TO_DAYS(NOW())
-         AND status='2' AND p_package.status=p_status.s_id  AND p_package.msgStatus=m_status.m_id
-         AND p_package.expressCompany=p_express.e_id AND station=p_station.id AND p_package.packId=package_out_log.packId
+         AND status='102' AND p_package.status=yinshe.id  AND p_package.msgStatus=m_status.m_id
+         AND p_package.expressCompany=p_express.e_id AND p_package.station=p_station.id AND p_package.packId=package_out_log.packId
     </select>
 
 
     <!--查询滞留件信息列表，此时出库时间为null-->
     <select id="findDetained" resultType="Package">
-         select * from p_package,p_status,m_status,p_express,p_station
+         select p_package.id, packId,receiverPhone,stationName,putInTime,pickUpCode,name as s_status,m_status,expressName,path
+         from p_package,yinshe,m_status,p_express,p_station
          where TIMESTAMPDIFF(hour,putInTime,Now()) &gt;24
-         AND status='1' AND p_package.status=p_status.s_id  AND p_package.msgStatus=m_status.m_id
-         AND p_package.expressCompany=p_express.e_id AND station=p_station.id
+         AND status='101' AND p_package.status=yinshe.id  AND p_package.msgStatus=m_status.m_id
+         AND p_package.expressCompany=p_express.e_id AND p_package.station=p_station.id
     </select>
 
     <!--查询目前滞留件数量：24小时内未取件-->
     <select id="detainedNum" resultType="Integer">
-        select count(*) from p_package where TIMESTAMPDIFF(hour,putInTime,Now())&gt;24 AND status='1'
+        select count(*) from p_package where TIMESTAMPDIFF(hour,putInTime,Now())&gt;24 AND status='101'
     </select>
 
     <!--管理人员查询驿站目前所有未处理的问题件信息列表-->
     <select id="findProblem" resultType="Package">
-         select * from p_package,p_status,m_status,p_express,p_station
-         where status='3' AND p_package.status=p_status.s_id  AND p_package.msgStatus=m_status.m_id
-         AND p_package.expressCompany=p_express.e_id AND station=p_station.id
+         select p_package.id, packId,receiverPhone,stationName,putInTime,pickUpCode,name as s_status,m_status,expressName,path
+         from p_package,yinshe,m_status,p_express,p_station
+         where status='105' AND p_package.status=yinshe.id  AND p_package.msgStatus=m_status.m_id
+         AND p_package.expressCompany=p_express.e_id AND p_package.station=p_station.id
     </select>
 
     <!--查询驿站目前现存的问题件数量-->
     <select id="problemNum" resultType="Integer">
-        select count(*) from p_package where  status='3'
+        select count(*) from p_package where  status='105'
     </select>
 
 
@@ -101,28 +102,29 @@
 
     <!--驿站今日截止到目前的已取件数量-->
      <select id="tokenNum"  resultType="Integer">
-         select count(*) from package_out_log where TO_DAYS(package_out_log.curDate)=TO_DAYS(NOW())
+         select count(*) from package_out_log
+         where year(package_out_log.curDate)=year(now()) and month(package_out_log.curDate)=month(now()) and day(package_out_log.curDate)=day(now())
      </select>
 
     <!--查询驿站今日待取件数量-->
     <select id="unTokenNum"  resultType="Integer">
-         select count(*) from p_package where   status='1'
+         select count(*) from p_package where   status='101'
     </select>
 
     <!--出库操作之一：修改快递状态为已取件，
     问题件修改状态为已取件：代表问题件得到解决-->
     <update id="updateStatusPicked" parameterType="Package">
-        update p_package set status='2' where id=#{id}
+        update p_package set status='102' where id=#{id}
     </update>
 
     <!--管理人员修改快递状态为问题件-->
     <update id="updateStatusProblem" parameterType="Package">
-        update p_package set status='3' where id=#{id}
+        update p_package set status='105' where id=#{id}
     </update>
 
     <!--批量修改快递状态为已通知：将未短信通知的快递状态修改为已通知-->
     <update id="updateStatusInformed" >
-        update p_package set msgStatus='2' where  status='1' AND msgStatus='1'
+        update p_package set msgStatus='2' where  status='101' AND msgStatus='1'
     </update>
 
 
@@ -165,7 +167,7 @@
         DATE_FORMAT(curDate, '%H')
         AS hour
         FROM package_out_log
-         where  year(curDate)=year(now()) and month(curDate) = month(now()) and day(curDate) = day(DATE_SUB(curdate(),INTERVAL -1 DAY))
+        where  year(curDate)=year(now()) and month(curDate) = month(now()) and day(curDate) = day(DATE_SUB(curdate(),INTERVAL -1 DAY))
         GROUP BY hour
         ORDER BY 1) A
         RIGHT JOIN (SELECT one.hours + two.hours AS dayHour
@@ -179,13 +181,18 @@
         UNION ALL SELECT 7 hours
         UNION ALL SELECT 8 hours
         UNION ALL SELECT 9 hours) one
-       CROSS JOIN (SELECT 0 hours
+        CROSS JOIN (SELECT 0 hours
         UNION ALL SELECT 10 hours
         UNION ALL SELECT 20 hours) two
         WHERE (one.hours + two.hours) &lt; 21 AND (one.hours + two.hours)&gt;8 ) B ON A.hour = CONVERT(B.dayHour, SIGNED)
         ORDER BY dayHour
 
     </select>
+
+
+
+
+
 
 
 </mapper>

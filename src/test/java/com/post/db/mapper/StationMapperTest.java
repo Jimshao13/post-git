@@ -1,4 +1,4 @@
-package com.post.db.service;
+package com.post.db.mapper;
 
 import com.post.db.entity.Station;
 import com.post.db.service.StationService;
@@ -36,8 +36,9 @@ class StationMapperTest {
         Station station=new Station();
         station.setLatitude(1.0);
         station.setStationName("测试 2");
-        station.setLongitude(2.0);
-        station.setAddress("柘汪");
+        station.setLongtitude(2.0);
+        station.setLocation("江苏省连云港市");
+        station.setAddress("赣榆县柘汪镇");
         station.setCapacity("100");
         station.setContactPerson("王宝强");
         station.setContactNumber("123456543");
@@ -50,12 +51,11 @@ class StationMapperTest {
         station.setId("10");
         station.setLatitude(1.0);
         station.setStationName("测试 2");
-        station.setLongitude(2.0);
+        station.setLongtitude(2.0);
         station.setAddress("柘汪");
         station.setCapacity("100");
         station.setContactPerson("王宝强");
         station.setContactNumber("123456543");
         stationService.update(station);
-
     }
 }

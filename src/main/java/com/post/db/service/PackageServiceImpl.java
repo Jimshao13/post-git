@@ -111,5 +111,4 @@ public class PackageServiceImpl implements PackageService{
     public List<Integer> yesterdayHourNum() {
         return packageMapper.yesterdayHourNum();
     }
-
 }

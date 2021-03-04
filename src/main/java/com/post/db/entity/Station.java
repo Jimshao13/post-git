@@ -16,7 +16,7 @@ public class Station {
     //区号
     private String areaId;
     //经度
-    private Double longitude;
+    private Double longtitude;
     //纬度
     private Double latitude;
 

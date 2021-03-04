@@ -54,7 +54,7 @@ class PackageServiceTest {
         System.out.println(pack);
     }
 
-    //管理人员查询24小时内的待取件快递列表:即今日的待取件快递
+    //管理人员查询今日的待取件快递
     @Test
     void findUnToken() {
         List<Package> unToken = packageService.findUnToken();
@@ -110,7 +110,6 @@ class PackageServiceTest {
         Package pack= packageService.findByPackId("12229929");
         packageService.updateStatusPicked(pack);
     }
-
 
 
     //修改入库24小时内的未通知的待取件的快递短信状态为已通知

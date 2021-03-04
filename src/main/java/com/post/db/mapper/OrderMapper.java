@@ -13,10 +13,12 @@ public interface OrderMapper {
     //删除订单
     void delete(String id);
 
-
     //修改订单呢
     void update(Order order);
 
     //查看所有订单
     List<Order> findAll();
+
+    //查看今日揽件量
+    Integer orderNum();
 }
