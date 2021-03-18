@@ -10,13 +10,13 @@
     </select>
 
     <insert id="save" parameterType="Order" keyProperty="id" useGeneratedKeys="true" >
-        insert into p_order(id,sender,senderAddress,senderPhone,receiver,receiverAddress,receiverPhone,expressCompany,category,orderTime)
-         values(#{id},#{sender},#{senderAddress},#{senderPhone},#{receiver},#{receiverAddress},#{receiverPhone},#{expressCompany},#{category},#{orderTime})
+        insert into p_order(id,packId,sender,senderAddress,senderPhone,receiver,receiverAddress,receiverPhone,expressCompany,category,orderTime)
+         values(#{id},#{packId},#{sender},#{senderAddress},#{senderPhone},#{receiver},#{receiverAddress},#{receiverPhone},#{expressCompany},#{category},#{orderTime})
     </insert>
 
 
     <delete id="delete" parameterType="String">
-        delete from p_order where id=#{id}
+        delete from p_order where packId=#{packId}
     </delete>
 
     <update id="update" parameterType="Order">
@@ -28,6 +28,19 @@
     <!--查询今日揽件量-->
     <select id="orderNum" resultType="Integer">
         select count(*) from p_order where year(p_order.orderTime)=year(now()) and month(p_order.orderTime)=month(now()) and day(p_order.orderTime)=day(now())
+    </select>
+
+    <!--查询我的订单-->
+    <select id="findMyOrder" resultType="Order">
+        select packId,sender,senderPhone,senderAddress,receiver,receiverPhone,receiverAddress,expressName,orderTime,yinshe.name as categoryName
+        from p_order,p_express,yinshe
+        where senderPhone=#{senderPhone} And p_order.expressCompany=p_express.e_id AND p_order.category=yinshe.id
+        limit #{start},#{rows}
+    </select>
+
+    <!--查询我的订单数量-->
+    <select id="findMyOrderTotals" resultType="Long" parameterType="String">
+        select count(*) from p_order where senderPhone=#{senderPhone}
     </select>
 
 

@@ -35,7 +35,7 @@ public class StationController {
         Map<String, Object> result = new HashMap<>();
 
         pageNow = pageNow == null ? 1 : pageNow;
-        pageSize = pageSize == null ? 4 : pageSize;
+        pageSize = pageSize == null ? 6 : pageSize;
 
         List<Station> stations = stationService.findByPage(pageNow, pageSize);
         Long totals = stationService.findTotals();

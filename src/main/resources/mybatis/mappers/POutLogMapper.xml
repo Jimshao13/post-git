@@ -4,7 +4,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.post.db.mapper.POutLogMapper">
     <insert id="save" parameterType="POutLog" keyProperty="id" useGeneratedKeys="true" >
-        insert into p_out_log values (#{id},#{packId},#{pickUpTime})
+        insert into package_out_log(id,packId,curDate,location,station) values (#{id},#{packId},#{curDate},#{location},#{station})
     </insert>
 
 

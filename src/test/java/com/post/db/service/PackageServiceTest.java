@@ -107,8 +107,7 @@ class PackageServiceTest {
     //修改快递状态为已取件
     @Test
     void updateStatus() {
-        Package pack= packageService.findByPackId("12229929");
-        packageService.updateStatusPicked(pack);
+        packageService.updateStatusPicked("6448650333524");
     }
 
 

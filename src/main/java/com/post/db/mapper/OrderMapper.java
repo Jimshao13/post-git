@@ -1,7 +1,9 @@
 package com.post.db.mapper;
 
 import com.post.db.entity.Order;
+import com.post.db.entity.Package;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -11,7 +13,7 @@ public interface OrderMapper {
     void save(Order order);
 
     //删除订单
-    void delete(String id);
+    void delete(String packId);
 
     //修改订单呢
     void update(Order order);
@@ -21,4 +23,11 @@ public interface OrderMapper {
 
     //查看今日揽件量
     Integer orderNum();
+
+    //分页查询个人全部订单
+    List<Order> findMyOrder(@Param("start") Integer start, @Param("rows") Integer rows, @Param("senderPhone")String senderPhone);
+
+    //查询个人订单量
+    long findMyOrderTotals(String senderPhone);
+
 }

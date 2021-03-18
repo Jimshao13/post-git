@@ -36,7 +36,7 @@ public class UserServiceImpl implements UserService {
         User userDB = userMapper.findByPhone(user.getPhoneNumber());
         if(!ObjectUtils.isEmpty(userDB)){//判断实体类是否为空
             //2、比较密码
-            if(userDB.getPasswd().equals(user.getPasswd())){
+            if(userDB.getPassWd().equals(user.getPassWd())){
                 return userDB;
             }else{
                 throw new RuntimeException("密码输入不正确");

@@ -30,6 +30,47 @@
     </select>
 
 
+    <!--用户或管理人员根据手机号分页查询用户过去三个月的已取快递,-->
+    <select id="findByPageByPhoneToken"  resultType="Package">
+        select p_package.id,p_package.packId as packId,receiverPhone,stationName,path,putInTime,pickUpCode,
+        package_out_log.curDate as pickUpTime,name as s_status,m_status,expressName
+        from p_package,yinshe,m_status,package_out_log,p_express,p_station
+        where package_out_log.curDate > DATE_SUB(CURDATE(), INTERVAL 3 MONTH)
+        AND receiverPhone=#{receiverPhone} AND p_package.status='102' AND p_package.status=yinshe.id And p_package.packId=package_out_log.packId  AND p_package.expressCompany=p_express.e_id
+        AND p_package.station=p_station.id AND p_package.msgStatus=m_status.m_id
+        limit #{start},#{rows}
+    </select>
+
+    <!--查询用户过去三个月的已取快递总条数-->
+    <select id="findTotalsByPhoneToken" parameterType="String" resultType="Long">
+        select count(*) from p_package,package_out_log
+        where receiverPhone=#{receiverPhone}
+        and status='102' and p_package.packId=package_out_log.packId
+        and package_out_log.curDate > DATE_SUB(CURDATE(), INTERVAL 3 MONTH)
+    </select>
+
+
+
+    <!--根据手机号查询个人剩余待取件数量-->
+    <select id="myUnTokenNum" parameterType="String" resultType="Integer">
+        select count(*) from p_package where receiverPhone=#{receiverPhone} and status='101'
+    </select>
+
+    <!--根据手机号查询个人今日已取件数量-->
+    <select id="myTokenNum" parameterType="String" resultType="Integer">
+        select count(*)
+        from p_package,package_out_log
+        where receiverPhone=#{receiverPhone}
+        and p_package.packId=package_out_log.packId
+        and year(package_out_log.curDate)=year(now()) and month(package_out_log.curDate)=month(now()) and day(package_out_log.curDate)=day(now())
+    </select>
+
+    <!--根据手机号查询个人问题件量-->
+    <select id="myProblemNum" parameterType="String" resultType="Integer">
+        select count(*) from p_package where receiverPhone=#{receiverPhone} and status='105'
+    </select>
+
+
     <!--用户或管理人员根据快递单号查询快递-->
     <select id="findByPackId" parameterType="String" resultType="Package">
          select p_package.id,p_package.packId as packId,receiverPhone,stationName,putInTime,pickUpCode,status,name as s_status,
@@ -45,6 +86,11 @@
          select id,packId,receiverPhone,station,putInTime,pickUpCode,status,msgStatus,expressCompany,path
          from p_package where id=#{id}
     </select>
+
+    <!--根据packId删除快递，供用户使用，但保留出库记录给管理员-->
+    <delete id="deleteByPackId" parameterType="String">
+        delete  from p_package where packId=#{packId}
+    </delete>
 
 
     <!--管理人员查询驿站待取件，此时出库时间为空,null-->
@@ -113,13 +159,13 @@
 
     <!--出库操作之一：修改快递状态为已取件，
     问题件修改状态为已取件：代表问题件得到解决-->
-    <update id="updateStatusPicked" parameterType="Package">
-        update p_package set status='102' where id=#{id}
+    <update id="updateStatusPicked" parameterType="String">
+        update p_package set status='102' where packId=#{packId}
     </update>
 
     <!--管理人员修改快递状态为问题件-->
-    <update id="updateStatusProblem" parameterType="Package">
-        update p_package set status='105' where id=#{id}
+    <update id="updateStatusProblem" parameterType="String">
+        update p_package set status='105' where packId=#{packId}
     </update>
 
     <!--批量修改快递状态为已通知：将未短信通知的快递状态修改为已通知-->

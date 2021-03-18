@@ -2,6 +2,7 @@ package com.post.db.mapper;
 
 import com.post.db.entity.Package;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -20,11 +21,32 @@ public interface PackageMapper {
     //根据手机号码查询个人全部已取快递
     List<Package> findByPhoneToken(String receiverPhone);
 
+
+    //分页查询个人全部已取快递
+    List<Package> findByPageByPhoneToken(@Param("start") Integer start, @Param("rows") Integer rows,@Param("receiverPhone")String receiverPhone);
+
+
+    //查询个人全部已取快递数量
+    long findTotalsByPhoneToken(String receiverPhone);
+
+    //根据手机号查询个人剩余待取件数量
+    Integer myUnTokenNum(String receiverPhone);
+
+    //根据手机号查询个人今日已取件数量
+    Integer myTokenNum(String receiverPhone);
+
+    //根据手机号查询个人问题件量
+    Integer myProblemNum(String receiverPhone);
+
     //根据快递单号查询快递
     Package findByPackId(String packId);
 
     //根据id查询快递
     Package findById(String id);
+
+
+    //根据id删除快递
+    void deleteByPackId(String packId);
 
     //查看24h内的待取件快递列表
     List<Package> findUnToken();
@@ -53,11 +75,11 @@ public interface PackageMapper {
     //查看当天的待取件数量
      Integer unTokenNum();
 
-    //修改快递状态为已取
-    void updateStatusPicked(Package pack);
+    //根据快递单号修改快递状态为已取
+    void updateStatusPicked(String pickId);
 
-    //修改快递状态为问题件
-    void updateStatusProblem(Package pack);
+    //根据快递单号修改快递状态为问题件
+    void updateStatusProblem(String packId);
 
     //修改快递状态为已通知
     void updateStatusInformed();

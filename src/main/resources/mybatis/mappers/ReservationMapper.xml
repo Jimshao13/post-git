@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.post.db.mapper.ReservationMapper">
+    <insert id="save" parameterType="Reservation" useGeneratedKeys="true" keyProperty="id">
+        insert into p_reservation(id,packId,curDate,name,phoneNumber,address) values(#{id},#{packId},#{curDate},#{name},#{phoneNumber},#{address})
+    </insert>
+
+
+</mapper>

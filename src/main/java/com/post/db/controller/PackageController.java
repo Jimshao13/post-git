@@ -47,6 +47,39 @@ public class PackageController {
         return packageService.findByPhoneToken(receiverPhone);
     }
 
+    /*分页查询方法*/
+    @GetMapping("/findByPageByPhoneToken")
+    public Map<String,Object> findByPageByPhoneToken(Integer pageNow,Integer pageSize,String receiverPhone){
+        Map<String,Object> result=new HashMap<>();
+
+        pageNow=pageNow==null?1:pageNow;
+        pageSize=pageSize==null?6:pageSize;
+
+        List<Package> packages = packageService.findByPageByPhoneToken(pageNow, pageSize,receiverPhone);
+        Long totals = packageService.findTotalsByPhoneToken(receiverPhone);
+        result.put("packages",packages);
+        result.put("total",totals);
+        return result;
+    }
+
+    //查询个人快递数据的统计
+    @GetMapping("/findMyNum")
+    public Map<String,Object> findMyNum(String receiverPhone){
+        Integer myUnTokenNum = packageService.myUnTokenNum(receiverPhone);
+        Integer myTokenNum = packageService.myTokenNum(receiverPhone);
+        Integer myProblemNum = packageService.myProblemNum(receiverPhone);
+
+        Map map=new HashMap<String,Object>();
+        map.put("myUnTokenNum",myUnTokenNum);
+        map.put("myTokenNum",myTokenNum);
+        map.put("myProblemNum",myProblemNum);
+        
+        return map;
+
+    }
+
+
+
     //根据快递单号查询快递
     @GetMapping("/findByPackId")
     public Package findByPackId(String packId){
@@ -57,6 +90,20 @@ public class PackageController {
     @GetMapping("/findById")
     public Package findById(String id){
         return packageService.findById(id);
+    }
+
+    //根据packId删除快递记录
+    @GetMapping("deleteByPackId")
+    public Map<String,Object> deleteByPackId(String packId){
+        Map<String,Object> map=new HashMap<>();
+        try {
+            packageService.deleteById(packId);
+            map.put("status",true);
+        } catch (Exception e) {
+            e.printStackTrace();
+            map.put("status",false);
+        }
+        return map;
     }
 
     //查看驿站今日的待取件快递列表
@@ -105,38 +152,35 @@ public class PackageController {
     //出库：用户取件，添加出库记录，同时修改快递状态为已取件，
     //问题件处理
     @GetMapping("/pick")
-    public Map<String,Object> pick(String id){
-        log.info("取件的快递id为:[{}]",id);
+    public Map<String,Object> pick(String packId){
+        log.info("取件的快递单号为:[{}]",packId);
         Map<String,Object> map=new HashMap<>();
         try {
-            Package pack=packageService.findById(id);
-            packageService.updateStatusPicked(pack);
-
+            packageService.updateStatusPicked(packId);
+            Package pack = packageService.findByPackId(packId);
             POutLog pOutLog=new POutLog();
             pOutLog.setPackId(pack.getPackId());
-            //pOutLog.setCurDate(new Timestamp(System.currentTimeMillis()));//创建当前日期时间
-            pOutLog.setPickUpTime(new Date());
-            pOutLogService.save(pOutLog);
 
+            //pOutLog.setCurDate(new Timestamp(System.currentTimeMillis()));//创建当前日期时间
+            pOutLog.setCurDate(new Date());
+            pOutLog.setStation(pack.getStation());
+            pOutLog.setLocation("1001-1");
+            pOutLogService.save(pOutLog);
             map.put("status",true);
-            map.put("msg","取件成功");
         } catch (Exception e) {
             e.printStackTrace();
             map.put("status",false);
-            map.put("msg","取件失败，请稍后再试");
         }
         return map;
     }
 
     //修改快递状态为问题件
     @GetMapping("/problem")
-    public Map<String,Object> updateStatusProblem(String id){
-        log.info("问题件的id为:[{}]",id);
+    public Map<String,Object> updateStatusProblem(String packId){
+        log.info("问题件的快递单号为:[{}]",packId);
         Map<String,Object> map=new HashMap<>();
-
         try {
-            Package pack = packageService.findById(id);
-            packageService.updateStatusProblem(pack);
+            packageService.updateStatusProblem(packId);
             map.put("status",true);
             map.put("msg","以修改状态为问题件");
         } catch (Exception e) {

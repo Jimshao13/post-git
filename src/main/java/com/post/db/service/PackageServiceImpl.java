@@ -31,6 +31,32 @@ public class PackageServiceImpl implements PackageService{
     }
 
     @Override
+    public List<Package> findByPageByPhoneToken(Integer pageNow, Integer rows,String receiverPhone) {
+        int start=(pageNow-1)*rows;//由当前页及每页的条数，得到当前查询的起始条数位置
+        return packageMapper.findByPageByPhoneToken(start,rows,receiverPhone);
+    }
+
+    @Override
+    public long findTotalsByPhoneToken(String receiverPhone) {
+        return packageMapper.findTotalsByPhoneToken(receiverPhone);
+    }
+
+    @Override
+    public Integer myUnTokenNum(String receiverPhone) {
+        return packageMapper.myUnTokenNum(receiverPhone);
+    }
+
+    @Override
+    public Integer myTokenNum(String receiverPhone) {
+        return packageMapper.myTokenNum(receiverPhone);
+    }
+
+    @Override
+    public Integer myProblemNum(String receiverPhone) {
+        return packageMapper.myProblemNum(receiverPhone);
+    }
+
+    @Override
     public Package findByPackId(String packId) {
         return packageMapper.findByPackId(packId);
     }
@@ -39,6 +65,11 @@ public class PackageServiceImpl implements PackageService{
     @Override
     public Package findById(String id){
         return packageMapper.findById(id);
+    }
+
+    @Override
+    public void deleteById(String packId) {
+        packageMapper.deleteByPackId(packId);
     }
 
     @Override
@@ -88,13 +119,13 @@ public class PackageServiceImpl implements PackageService{
     }
 
     @Override
-    public void updateStatusPicked(Package pack) {
-        packageMapper.updateStatusPicked(pack);
+    public void updateStatusPicked(String packId) {
+        packageMapper.updateStatusPicked(packId);
     }
 
     @Override
-    public void updateStatusProblem(Package pack) {
-        packageMapper.updateStatusProblem(pack);
+    public void updateStatusProblem(String packId) {
+        packageMapper.updateStatusProblem(packId);
     }
 
     @Override
