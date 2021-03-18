@@ -15,6 +15,7 @@ import java.util.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Order {
+    private String packId;
     private String id;
     private String sender;
     private String senderAddress;

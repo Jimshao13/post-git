@@ -17,5 +17,7 @@ import java.util.Date;
 public class POutLog {
     private String id;
     private String packId;
-    private Date pickUpTime;
+    private Date curDate;
+    private int station;
+    private String location;
 }

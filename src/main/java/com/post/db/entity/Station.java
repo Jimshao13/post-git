@@ -12,6 +12,7 @@ public class Station {
     private String stationName;
     //驿站容量
     private String capacity;
+    //详细地址
     private String address;
     //区号
     private String areaId;
