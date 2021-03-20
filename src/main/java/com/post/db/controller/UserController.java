@@ -3,6 +3,8 @@ package com.post.db.controller;
 import com.post.db.entity.User;
 import com.post.db.service.UserService;
 import com.post.db.utils.VerifyCodeUtils;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.Base64Utils;
@@ -15,10 +17,8 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
-/**
- * @author 邵鹏泽
- * @create 2021-01-16:00
- */
+
+@Api(tags="用户服务的相关接口描述")
 @RestController
 @CrossOrigin//允许跨域
 @RequestMapping("/user")
@@ -28,6 +28,8 @@ public class UserController {
     private UserService userService;
 
     //处理用户登录
+    @ApiOperation(value="用于处理用户的登陆请求",
+    notes="<span style='color:red;'>描述:</span>&nbsp;用来处理用户的登陆请求")
     @PostMapping("/login")
     public Map<String,Object> login(@RequestBody User user){
         log.info("当前登录的用户信息:[{}]",user.toString());

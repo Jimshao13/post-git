@@ -4,6 +4,8 @@ import com.post.db.entity.POutLog;
 import com.post.db.entity.Package;
 import com.post.db.service.POutLogService;
 import com.post.db.service.PackageService;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
 import org.apache.commons.io.FilenameUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,6 +43,10 @@ public class PackageController {
         return packageService.findByPhoneUnToken(receiverPhone);
     }
 
+
+    @ApiImplicitParams({
+            @ApiImplicitParam(name="receiverPhone",value = "收件人电话",dataType = "String",defaultValue = "18805196853"),
+    })
     //根据手机号码查询个人过去三个月的已取快递
     @GetMapping("/findByPhoneToken")
     public List<Package> findByPhoneToken(String receiverPhone){
