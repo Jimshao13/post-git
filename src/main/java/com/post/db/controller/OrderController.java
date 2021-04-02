@@ -6,6 +6,8 @@ import com.post.db.entity.User;
 import com.post.db.service.OrderService;
 import com.post.db.utils.GetCodeUtils;
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -63,6 +65,9 @@ public class OrderController {
 
 
     @GetMapping("/delete")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name="packId",value="快递单号",dataType = "String",defaultValue = "122228992")
+    })
     @ApiOperation(value = "删除订单")
     public Map<String,Object> delete(String packId){
         Map<String,Object> result=new HashMap<>();

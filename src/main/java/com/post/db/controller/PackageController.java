@@ -5,6 +5,8 @@ import com.post.db.entity.Package;
 import com.post.db.service.POutLogService;
 import com.post.db.service.PackageService;
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
 import org.apache.commons.io.FilenameUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,11 +40,17 @@ public class PackageController {
     private String realPath;
 
     //根据手机号码查询个人全部待取快递
+    @ApiImplicitParams({
+            @ApiImplicitParam(name="receiverPhone",value="取件人电话",dataType = "String",defaultValue = "18805196853")
+    })
     @GetMapping("/findByPhoneUnToken")
     public List<Package> findByPhoneUnToken(String receiverPhone){
         return packageService.findByPhoneUnToken(receiverPhone);
     }
 
+    @ApiImplicitParams({
+            @ApiImplicitParam(name="receiverPhone",value="取件人电话",dataType = "String",defaultValue = "18805196853")
+    })
     //根据手机号码查询个人过去三个月的已取快递
     @GetMapping("/findByPhoneToken")
     public List<Package> findByPhoneToken(String receiverPhone){
@@ -65,6 +73,9 @@ public class PackageController {
     }
 
     //查询个人快递数据的统计
+    @ApiImplicitParams({
+            @ApiImplicitParam(name="receiverPhone",value="待取件人电话",dataType = "String",defaultValue = "18805196853")
+    })
     @GetMapping("/findMyNum")
     public Map<String,Object> findMyNum(String receiverPhone){
         Integer myUnTokenNum = packageService.myUnTokenNum(receiverPhone);
@@ -83,6 +94,9 @@ public class PackageController {
 
 
     //根据快递单号查询快递
+    @ApiImplicitParams({
+            @ApiImplicitParam(name="packId",value="快递单号",dataType = "String",defaultValue = "122233343")
+    })
     @GetMapping("/findByPackId")
     public Package findByPackId(String packId){
         return packageService.findByPackId(packId);
@@ -95,6 +109,9 @@ public class PackageController {
     }
 
     //根据packId删除快递记录
+    @ApiImplicitParams({
+            @ApiImplicitParam(name="packId",value="快递单号",dataType = "String",defaultValue = "22233343")
+    })
     @GetMapping("deleteByPackId")
     public Map<String,Object> deleteByPackId(String packId){
         Map<String,Object> map=new HashMap<>();
@@ -154,6 +171,9 @@ public class PackageController {
     //出库：用户取件，添加出库记录，同时修改快递状态为已取件，
     //问题件处理
     @GetMapping("/pick")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name="packId",value="快递单号",dataType = "String",defaultValue = "22233343")
+    })
     public Map<String,Object> pick(String packId){
         log.info("取件的快递单号为:[{}]",packId);
         Map<String,Object> map=new HashMap<>();
@@ -178,6 +198,9 @@ public class PackageController {
 
     //修改快递状态为问题件
     @GetMapping("/problem")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name="packId",value="快递单号",dataType = "String",defaultValue = "22233343")
+    })
     public Map<String,Object> updateStatusProblem(String packId){
         log.info("问题件的快递单号为:[{}]",packId);
         Map<String,Object> map=new HashMap<>();
