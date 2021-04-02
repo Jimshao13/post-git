@@ -1,6 +1,7 @@
 package com.post.db.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import io.swagger.annotations.ApiModel;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -14,6 +15,7 @@ import java.util.Date;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@ApiModel(description="寄件订单类")
 public class Order {
     private String packId;
     private String id;
@@ -27,6 +29,7 @@ public class Order {
     private int expressCompany;
     //快递品牌映射
     private String expressName;
+
     private int category;
     //快递所属类别映射
     private String categoryName;

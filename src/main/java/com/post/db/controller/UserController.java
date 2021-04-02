@@ -3,6 +3,7 @@ package com.post.db.controller;
 import com.post.db.entity.User;
 import com.post.db.service.UserService;
 import com.post.db.utils.VerifyCodeUtils;
+import io.swagger.annotations.Api;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.Base64Utils;
@@ -23,6 +24,7 @@ import java.util.Map;
 @CrossOrigin//允许跨域
 @RequestMapping("/user")
 @Slf4j//利用@Sel4j注解，快速打印日志信息
+@Api(tags="用户登录、注册、获取验证码相关接口")
 public class UserController {
     @Autowired
     private UserService userService;

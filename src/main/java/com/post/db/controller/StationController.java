@@ -3,6 +3,7 @@ package com.post.db.controller;
 import com.alibaba.druid.util.StringUtils;
 import com.post.db.entity.Station;
 import com.post.db.service.StationService;
+import io.swagger.annotations.Api;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -19,6 +20,7 @@ import java.util.Map;
 @CrossOrigin//允许跨域
 @RequestMapping("/station")
 @Slf4j//利用@Sel4j注解，快速打印日志信息
+@Api(tags="驿站查询添加相关接口")
 public class StationController {
     @Autowired
     StationService stationService;

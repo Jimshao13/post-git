@@ -3,6 +3,8 @@ package com.post.db.controller;
 import com.post.db.entity.Package;
 import com.post.db.service.PackageService;
 import com.post.db.utils.HttpUtils;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.apache.http.HttpResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -14,21 +16,23 @@ import java.util.Map;
 @CrossOrigin
 @RestController
 @RequestMapping("/msg")
+@Api(tags="短信通知服务相关接口描述")
 public class MsgController {
 
     @Autowired
     PackageService packageService;
 
-    //对特定id快递发送取件码
+    //对特定packId快递发送取件码
+    @ApiOperation(value="对特定packId快递发送取件码")
     @GetMapping("/informById")
-    public void sendPackId(String id){
+    public void sendPackId(String packId){
         String host = "http://yzx.market.alicloudapi.com";
         String path = "/yzx/sendSms";
         String method = "POST";
         String appcode = "e1368b4ac5ce43c6bf13d7ede7ca205a";//AppCode
         Map<String, String> headers = new HashMap<String, String>();
         //最后在header中的格式(中间是英文空格)为Authorization:APPCODE 83359fd73fe94948385f570e3c139105
-        Package pack = packageService.findById(id);
+        Package pack = packageService.findByPackId(packId);
 
         headers.put("Authorization", "APPCODE " + appcode);
         Map<String, String> querys = new HashMap<String, String>();
@@ -63,6 +67,7 @@ public class MsgController {
 
 
     //对驿站所有未短信通知的快递发送短信通知,并修改相关快递短信状态为已通知
+    @ApiOperation(value="对驿站所有未短信通知的快递发送短信通知,并修改相关快递短信状态为已通知")
     @GetMapping("/informUninformed")
     public Map<String,Object> informUninformed(){
         List<Package> packs = packageService.findUninformed();
@@ -108,6 +113,7 @@ public class MsgController {
     }
 
     //对滞留件快递发送短信，提醒用户取件
+    @ApiOperation(value="对滞留件快递发送短信，提醒用户取件")
     @GetMapping("/informDetained")
     public Map<String,Object> informDetained(){
         List<Package> packs = packageService.findDetained();

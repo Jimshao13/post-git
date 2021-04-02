@@ -4,6 +4,7 @@ import com.post.db.entity.POutLog;
 import com.post.db.entity.Package;
 import com.post.db.service.POutLogService;
 import com.post.db.service.PackageService;
+import io.swagger.annotations.Api;
 import org.apache.commons.io.FilenameUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +26,7 @@ import java.util.*;
 @CrossOrigin//允许跨域
 @RequestMapping("/package")
 @Slf4j//利用@Sel4j注解，快速打印日志信息
+@Api(tags="快递信息查询相关接口")
 public class PackageController {
     @Autowired
     PackageService packageService;
