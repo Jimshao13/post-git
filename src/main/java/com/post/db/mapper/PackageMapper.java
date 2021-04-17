@@ -26,6 +26,14 @@ public interface PackageMapper {
     List<Package> findByPageByPhoneToken(@Param("start") Integer start, @Param("rows") Integer rows,@Param("receiverPhone")String receiverPhone);
 
 
+    //分页查询待短信通知的快递
+    List<Package> findUninformedByPage(@Param("start") Integer start, @Param("rows") Integer rows);
+
+
+    //查询待短信通知的快递数量
+    long uninformedTotals();
+
+
     //查询个人全部已取快递数量
     long findTotalsByPhoneToken(String receiverPhone);
 

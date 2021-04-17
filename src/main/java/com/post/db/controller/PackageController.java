@@ -68,6 +68,23 @@ public class PackageController {
         return result;
     }
 
+
+    //查看未短信通知的快递
+    @GetMapping("/findUninformedByPage")
+    public Map<String,Object> findUninformedByPage(Integer pageNow,Integer pageSize){
+        Map<String,Object> result=new HashMap<>();
+
+        pageNow=pageNow==null?1:pageNow;
+        pageSize=pageSize==null?6:pageSize;
+
+        List<Package> packages = packageService.findUninformedByPage(pageNow, pageSize);
+        Long totals = packageService.uninformedTotals();
+        result.put("packages",packages);
+        result.put("total",totals);
+        return result;
+    }
+
+
     //查询个人快递数据的统计
     @GetMapping("/findMyNum")
     public Map<String,Object> findMyNum(String receiverPhone){
