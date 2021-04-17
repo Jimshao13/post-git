@@ -237,7 +237,7 @@
 
 
     <!--查询待短信通知的快递数量-->
-    <select id="uniformedTotals" resultType="Integer">
+    <select id="uninformedTotals" resultType="Long">
         select count(*) from p_package where msgStatus='1'
     </select>
 
@@ -248,7 +248,7 @@
         select p_package.id,p_package.packId as packId,receiverPhone,path,putInTime,pickUpCode,
         name as s_status,m_status,expressName
         from p_package,yinshe,m_status,p_express
-        where  msgStatus='1' AND  p_package.status=yinshe.id  AND p_package.expressCompany=p_express.e_id
+        where  msgStatus='1' AND status='101' AND  p_package.status=yinshe.id  AND p_package.expressCompany=p_express.e_id
         AND p_package.msgStatus=m_status.m_id
         limit #{start},#{rows}
 

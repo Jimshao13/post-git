@@ -37,14 +37,14 @@ public class PackageServiceImpl implements PackageService{
     }
 
     @Override
-    public List<Package> findUniformedByPage(Integer pageNow, Integer rows) {
+    public List<Package> findUninformedByPage(Integer pageNow, Integer rows) {
         int start=(pageNow-1)*rows;//由当前页及每页的条数，得到当前查询的起始条数位置
-        return packageMapper.findUniformedByPage(start,rows);
+        return packageMapper.findUninformedByPage(start,rows);
     }
 
     @Override
-    public long uniformedTotals() {
-        return packageMapper.uniformedTotals();
+    public long uninformedTotals() {
+        return packageMapper.uninformedTotals();
     }
 
     @Override

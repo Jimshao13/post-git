@@ -23,10 +23,10 @@ public interface PackageService {
     List<Package> findByPageByPhoneToken(Integer pageNow, Integer rows,String receiverPhone);
 
     //分页查询待短信通知的快递
-    List<Package> findUniformedByPage(Integer pageNow, Integer rows);
+    List<Package> findUninformedByPage(Integer pageNow, Integer rows);
 
     //查询待短信通知的快递数量
-    long uniformedTotals();
+    long uninformedTotals();
 
     //查询个人全部已取快递数量
     long findTotalsByPhoneToken(String receiverPhone);
