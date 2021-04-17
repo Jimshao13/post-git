@@ -137,6 +137,21 @@ public class PackageController {
         return packageService.findToken();
     }
 
+    //查看未短信通知的快递
+    @GetMapping("/findUninformedByPage")
+    public Map<String,Object> findUniformedByPage(Integer pageNow,Integer pageSize){
+        Map<String,Object> result=new HashMap<>();
+
+        pageNow=pageNow==null?1:pageNow;
+        pageSize=pageSize==null?6:pageSize;
+
+        List<Package> packages = packageService.findUniformedByPage(pageNow, pageSize);
+        Long totals = packageService.uniformedTotals();
+        result.put("packages",packages);
+        result.put("total",totals);
+        return result;
+    }
+
     //查看滞留件
     @GetMapping("/findDetained")
     public List<Package> findDetained(){
