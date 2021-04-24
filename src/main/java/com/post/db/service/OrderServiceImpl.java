@@ -42,6 +42,14 @@ public class OrderServiceImpl implements OrderService{
         return orderMapper.findAll();
     }
 
+    //分页查询所有代接订单
+    @Override
+    public List<Order> findAllByPage(Integer pageNow, Integer rows) {
+
+        int start=(pageNow-1)*rows;//由当前页及每页的条数，得到当前查询的起始条数位置
+        return orderMapper.findAllByPage(start,rows);
+    }
+
     //查询订单数量
     @Override
     public Integer orderNum() {
@@ -55,6 +63,13 @@ public class OrderServiceImpl implements OrderService{
         return orderMapper.findMyOrder(start,rows,senderPhone);
     }
 
+    //查询代接订单总量
+    @Override
+    public long findOrderTotals() {
+        return orderMapper.findOrderTotals();
+    }
+
+    //查询我的订单总量
     @Override
     public long findMyOrderTotals(String senderPhone) {
         return orderMapper.findMyOrderTotals(senderPhone);

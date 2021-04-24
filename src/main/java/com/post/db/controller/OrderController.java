@@ -47,7 +47,7 @@ public class OrderController {
         return map;
     }
 
-    /*分页查询方法*/
+    //分页查询我的订单
     @ApiOperation(value = "分页查询我的订单")
     @GetMapping("/findMyOrder")
     public Map<String,Object> findMyOrder(Integer pageNow,Integer pageSize,String senderPhone){
@@ -62,6 +62,23 @@ public class OrderController {
         result.put("total",totals);
         return result;
     }
+
+
+    //分页查询所有订单方法
+    @GetMapping("/findAllByPage")
+    public Map<String,Object> findAllByPage(Integer pageNow,Integer pageSize){
+        Map<String,Object> result=new HashMap<>();
+
+        pageNow=pageNow==null?1:pageNow;
+        pageSize=pageSize==null?6:pageSize;
+
+        List<Order> orders = orderService.findAllByPage(pageNow, pageSize);
+        Long totals = orderService.findOrderTotals();
+        result.put("orders",orders);
+        result.put("total",totals);
+        return result;
+    }
+
 
 
     @GetMapping("/delete")

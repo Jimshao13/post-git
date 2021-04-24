@@ -36,4 +36,8 @@ public class Order {
 
     @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
     private Date orderTime;
+
+    //订单的状态
+    private String status;
+
 }

@@ -23,11 +23,17 @@ public interface OrderService {
     //查看所有订单
     List<Order> findAll();
 
+    //分页查询所有代接订单
+    List<Order> findAllByPage(Integer pageNow, Integer rows);
+
     //查看今日揽件量
     Integer orderNum();
 
     //分页查询
     List<Order> findMyOrder(Integer pageNow, Integer rows, String senderPhone);
+
+    //查询今日代接订单总量
+    long findOrderTotals();
 
     //查询个人订单量
     long findMyOrderTotals(String senderPhone);
