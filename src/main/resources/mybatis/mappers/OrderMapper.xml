@@ -11,7 +11,7 @@
 
     <!--分页查询所有订单-->
     <select id="findAllByPage" resultType="Order">
-        select p_order.id,sender,senderAddress,senderPhone,receiver,receiverPhone,receiverAddress,expressName,name as categoryName,orderTime,s_status as status
+        select packId,p_order.id,sender,senderAddress,senderPhone,receiver,receiverPhone,receiverAddress,expressName,name as categoryName,orderTime,s_status as status
         from p_order,yinshe,p_express,p_status
         where expressCompany=p_express.e_id AND category=yinshe.id AND p_order.status=p_status.s_id
         limit #{start},#{rows}
@@ -57,6 +57,13 @@
         select count(*) from p_order where p_order.status='101'
     </select>
 
+    <!--驿站全部接单-->
+    <update id="acceptAll" >
+        update p_order set status='102' where  status='101'
+    </update>
 
-
+    <!--驿站接收某订单-->
+    <update id="acceptOrder" parameterType="String">
+         update p_order set status='102' where packId=#{packId}
+    </update>
 </mapper>

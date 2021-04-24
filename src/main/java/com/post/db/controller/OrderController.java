@@ -73,6 +73,7 @@ public class OrderController {
 
 
 
+    //删除订单
     @GetMapping("/delete")
     public Map<String,Object> delete(String packId){
         Map<String,Object> result=new HashMap<>();
@@ -86,6 +87,31 @@ public class OrderController {
         return result;
     }
 
+    @GetMapping("/acceptAll")
+    public Map<String,Object> acceptAll(){
+        Map<String,Object> result=new HashMap<>();
+        try{
+            orderService.acceptAll();
+            result.put("status",true);
+        }catch(Exception e){
+            e.printStackTrace();
+            result.put("status",false);
+        }
+        return result;
+    }
+
+    @GetMapping("/acceptOrder")
+    public Map<String,Object> acceptOrder(String packId){
+        Map<String,Object> result=new HashMap<>();
+        try{
+            orderService.acceptOrder(packId);
+            result.put("status",true);
+        }catch(Exception e){
+            e.printStackTrace();
+            result.put("status",false);
+        }
+        return result;
+    }
 
 
 
