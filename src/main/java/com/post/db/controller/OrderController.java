@@ -100,6 +100,45 @@ public class OrderController {
 
 
 
+    @GetMapping("/acceptAll")
+    public Map<String,Object> acceptAll(){
+        Map<String,Object> result=new HashMap<>();
+        try{
+            orderService.acceptAll();
+            result.put("status",true);
+        }catch(Exception e){
+            e.printStackTrace();
+            result.put("status",false);
+        }
+        return result;
+    }
+
+    @GetMapping("/acceptOrder")
+    public Map<String,Object> acceptOrder(String packId){
+        Map<String,Object> result=new HashMap<>();
+        try{
+            orderService.acceptOrder(packId);
+            result.put("status",true);
+        }catch(Exception e){
+            e.printStackTrace();
+            result.put("status",false);
+        }
+        return result;
+    }
+
+    @GetMapping("/cancelOrder")
+    public Map<String,Object> cancelOrder(String packId){
+        Map<String,Object> result=new HashMap<>();
+        try{
+            orderService.cancelOrder(packId);
+            result.put("status",true);
+        }catch(Exception e){
+            e.printStackTrace();
+            result.put("status",false);
+        }
+        return result;
+    }
+
 
 
 

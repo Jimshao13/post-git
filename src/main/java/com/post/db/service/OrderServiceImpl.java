@@ -74,4 +74,24 @@ public class OrderServiceImpl implements OrderService{
     public long findMyOrderTotals(String senderPhone) {
         return orderMapper.findMyOrderTotals(senderPhone);
     }
+
+    //驿站接收全部订单
+    @Override
+    public void acceptAll() {
+        orderMapper.acceptAll();
+    }
+
+
+    //驿站接收某订单
+    @Override
+    public void acceptOrder(String packId) {
+        orderMapper.acceptOrder(packId);
+    }
+
+    @Override
+    public void cancelOrder(String packId) {
+        orderMapper.cancelOrder(packId);
+    }
+
+
 }

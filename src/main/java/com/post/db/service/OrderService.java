@@ -37,4 +37,15 @@ public interface OrderService {
 
     //查询个人订单量
     long findMyOrderTotals(String senderPhone);
+
+    //驿站全部接单
+    void acceptAll();
+
+    //驿站接受某订单
+    void acceptOrder(String packId);
+
+    //驿站或用户取消订单
+    void cancelOrder(String packId);
+
+
 }
