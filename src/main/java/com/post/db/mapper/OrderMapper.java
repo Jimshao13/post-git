@@ -43,4 +43,8 @@ public interface OrderMapper {
     //驿站接收某订单
     void acceptOrder(String packId);
 
+
+    //驿站或用户取消订单
+    void cancelOrder(String packId);
+
 }

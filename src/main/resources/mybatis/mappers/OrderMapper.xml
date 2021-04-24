@@ -64,6 +64,14 @@
 
     <!--驿站接收某订单-->
     <update id="acceptOrder" parameterType="String">
-         update p_order set status='102' where packId=#{packId}
+        update p_order set status='102' where packId=#{packId}
     </update>
+
+    <!--驿站或用户取消订单-->
+    <update id="cancelOrder" parameterType="String">
+        update p_order set status='103' where packId=#{packId}
+    </update>
+
+
+
 </mapper>

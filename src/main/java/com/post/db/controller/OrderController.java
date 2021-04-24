@@ -1,10 +1,12 @@
 package com.post.db.controller;
 
 import com.post.db.entity.Order;
-import com.post.db.entity.Package;
-import com.post.db.entity.User;
 import com.post.db.service.OrderService;
 import com.post.db.utils.GetCodeUtils;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
+import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -19,11 +21,13 @@ import java.util.Map;
 @CrossOrigin//允许跨域
 @RequestMapping("/order")
 @Slf4j//利用@Sel4j注解，快速打印日志信息
+@Api(tags="用户寄件下单服务相关接口")
 public class OrderController {
     @Autowired
     OrderService orderService;
 
     //添加寄件订单
+    @ApiOperation(value = "寄件下单")
     @PostMapping("/save")
     public Map<String,Object> save(@RequestBody Order order){
         Map<String,Object>map=new HashMap<>();
@@ -41,7 +45,8 @@ public class OrderController {
         return map;
     }
 
-    //分页查询我的订单方法
+    //分页查询我的订单
+    @ApiOperation(value = "分页查询我的订单")
     @GetMapping("/findMyOrder")
     public Map<String,Object> findMyOrder(Integer pageNow,Integer pageSize,String senderPhone){
         Map<String,Object> result=new HashMap<>();
@@ -55,6 +60,7 @@ public class OrderController {
         result.put("total",totals);
         return result;
     }
+
 
     //分页查询所有订单方法
     @GetMapping("/findAllByPage")
@@ -73,8 +79,11 @@ public class OrderController {
 
 
 
-    //删除订单
     @GetMapping("/delete")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name="packId",value="快递单号",dataType = "String",defaultValue = "122228992")
+    })
+    @ApiOperation(value = "删除订单")
     public Map<String,Object> delete(String packId){
         Map<String,Object> result=new HashMap<>();
         try{
@@ -86,6 +95,8 @@ public class OrderController {
         }
         return result;
     }
+
+
 
     @GetMapping("/acceptAll")
     public Map<String,Object> acceptAll(){
@@ -113,9 +124,18 @@ public class OrderController {
         return result;
     }
 
-
-
-
+    @GetMapping("/cancelOrder")
+    public Map<String,Object> cancelOrder(String packId){
+        Map<String,Object> result=new HashMap<>();
+        try{
+            orderService.cancelOrder(packId);
+            result.put("status",true);
+        }catch(Exception e){
+            e.printStackTrace();
+            result.put("status",false);
+        }
+        return result;
+    }
 
 
 }

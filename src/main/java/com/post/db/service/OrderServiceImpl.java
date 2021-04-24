@@ -42,6 +42,7 @@ public class OrderServiceImpl implements OrderService{
         return orderMapper.findAll();
     }
 
+    //分页查询所有代接订单
     @Override
     public List<Order> findAllByPage(Integer pageNow, Integer rows) {
 
@@ -62,23 +63,35 @@ public class OrderServiceImpl implements OrderService{
         return orderMapper.findMyOrder(start,rows,senderPhone);
     }
 
+    //查询代接订单总量
     @Override
     public long findOrderTotals() {
         return orderMapper.findOrderTotals();
     }
 
+    //查询我的订单总量
     @Override
     public long findMyOrderTotals(String senderPhone) {
         return orderMapper.findMyOrderTotals(senderPhone);
     }
 
+    //驿站接收全部订单
     @Override
     public void acceptAll() {
         orderMapper.acceptAll();
     }
 
+
+    //驿站接收某订单
     @Override
     public void acceptOrder(String packId) {
         orderMapper.acceptOrder(packId);
     }
+
+    @Override
+    public void cancelOrder(String packId) {
+        orderMapper.cancelOrder(packId);
+    }
+
+
 }
