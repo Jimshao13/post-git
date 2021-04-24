@@ -43,7 +43,7 @@
     <select id="findAllByPage" resultType="Order">
         select p_order.id,sender,senderAddress,senderPhone,receiver,receiverPhone,receiverAddress,expressName,name as categoryName,orderTime,s_status as status
         from p_order,yinshe,p_express,p_status
-        where expressCompany=p_express.e_id AND category=yinshe.id AND p_order.status=p_status.s_id
+        where expressCompany=p_express.e_id AND category=yinshe.id AND p_order.status=p_status.s_id AND p_order.status='101'
         limit #{start},#{rows}
     </select>
 
