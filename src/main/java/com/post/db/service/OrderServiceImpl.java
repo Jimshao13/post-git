@@ -63,7 +63,7 @@ public class OrderServiceImpl implements OrderService{
         return orderMapper.findMyOrder(start,rows,senderPhone);
     }
 
-    //查询代接订单总量
+    //查询驿站代接收订单总量
     @Override
     public long findOrderTotals() {
         return orderMapper.findOrderTotals();
@@ -81,13 +81,13 @@ public class OrderServiceImpl implements OrderService{
         orderMapper.acceptAll();
     }
 
-
-    //驿站接收某订单
+    //驿站接收某单号订单
     @Override
     public void acceptOrder(String packId) {
         orderMapper.acceptOrder(packId);
     }
 
+    //驿站取消订单订单
     @Override
     public void cancelOrder(String packId) {
         orderMapper.cancelOrder(packId);
