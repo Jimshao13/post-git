@@ -42,6 +42,13 @@ public class OrderServiceImpl implements OrderService{
         return orderMapper.findAll();
     }
 
+    @Override
+    public List<Order> findAllByPage(Integer pageNow, Integer rows) {
+
+        int start=(pageNow-1)*rows;//由当前页及每页的条数，得到当前查询的起始条数位置
+        return orderMapper.findAllByPage(start,rows);
+    }
+
     //查询订单数量
     @Override
     public Integer orderNum() {
@@ -53,6 +60,11 @@ public class OrderServiceImpl implements OrderService{
     public List<Order> findMyOrder(Integer pageNow, Integer rows, String senderPhone) {
         int start=(pageNow-1)*rows;//由当前页及每页的条数，得到当前查询的起始条数位置
         return orderMapper.findMyOrder(start,rows,senderPhone);
+    }
+
+    @Override
+    public long findOrderTotals() {
+        return orderMapper.findOrderTotals();
     }
 
     @Override

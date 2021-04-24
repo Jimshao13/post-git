@@ -204,6 +204,7 @@
         ORDER BY dayHour
     </select>
 
+
     <!--错峰取件：查询昨日9点~21点每小时内的取件量-->
     <select id="yesterdayHourNum" resultType="Integer">
         SELECT
@@ -238,7 +239,7 @@
 
     <!--查询待短信通知的快递数量-->
     <select id="uninformedTotals" resultType="Long">
-       select count(*) from p_package where msgStatus='1'
+       select count(*) from p_package where msgStatus='1' AND status='101'
     </select>
 
 
