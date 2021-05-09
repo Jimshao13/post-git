@@ -9,14 +9,23 @@
         where expressCompany=p_express.e_id AND category=yinshe.id
     </select>
 
-    <insert id="save" parameterType="Order" keyProperty="id" useGeneratedKeys="true" >
+    <!--分页查询所有订单-->
+    <select id="findAllByPage" resultType="Order">
+        select packId,p_order.id,sender,senderAddress,senderPhone,receiver,receiverPhone,receiverAddress,expressName,name as categoryName,orderTime,s_status as status
+        from p_order,yinshe,p_express,p_status
+        where expressCompany=p_express.e_id AND category=yinshe.id AND p_order.status=p_status.s_id
+        limit #{start},#{rows}
+    </select>
+
+
+    <insert id="save" parameterType="Order" keyProperty="id" useGeneratedKeys="true">
         insert into p_order(id,packId,sender,senderAddress,senderPhone,receiver,receiverAddress,receiverPhone,expressCompany,category,orderTime)
          values(#{id},#{packId},#{sender},#{senderAddress},#{senderPhone},#{receiver},#{receiverAddress},#{receiverPhone},#{expressCompany},#{category},#{orderTime})
     </insert>
 
 
     <delete id="delete" parameterType="String">
-        delete from p_order where packId=#{packId}
+       delete from p_order where packId=#{packId}
     </delete>
 
     <update id="update" parameterType="Order">
@@ -30,7 +39,6 @@
         select count(*) from p_order where year(p_order.orderTime)=year(now()) and month(p_order.orderTime)=month(now()) and day(p_order.orderTime)=day(now())
     </select>
 
-
     <!--分页查询我的订单-->
     <select id="findMyOrder" resultType="Order">
         select packId,sender,senderPhone,senderAddress,receiver,receiverPhone,receiverAddress,expressName,orderTime,yinshe.name as categoryName,s_status as status
@@ -39,29 +47,19 @@
         limit #{start},#{rows}
     </select>
 
-    <!--分页查询所有订单-->
-    <select id="findAllByPage" resultType="Order">
-        select p_order.id,sender,senderAddress,senderPhone,receiver,receiverPhone,receiverAddress,expressName,name as categoryName,orderTime,s_status as status
-        from p_order,yinshe,p_express,p_status
-        where expressCompany=p_express.e_id AND category=yinshe.id AND p_order.status=p_status.s_id AND p_order.status='101'
-        limit #{start},#{rows}
-    </select>
-
-
-
     <!--查询我的订单数量-->
     <select id="findMyOrderTotals" resultType="Long" parameterType="String">
-        select count(*) from p_order where senderPhone=#{senderPhone}
+      select count(*) from p_order where senderPhone=#{senderPhone}
     </select>
 
-    <!--查询待接订单数量-->
+    <!--查询待接单数量-->
     <select id="findOrderTotals" resultType="Long" parameterType="String">
         select count(*) from p_order where p_order.status='101'
     </select>
 
     <!--驿站全部接单-->
-    <update id="acceptAll" >
-        update p_order set status='102' where  status='101'
+    <update id="acceptAll">
+         update p_order set status='102' where  status='101'
     </update>
 
     <!--驿站接收某订单-->
@@ -71,11 +69,8 @@
 
     <!--驿站或用户取消订单-->
     <update id="cancelOrder" parameterType="String">
-        update p_order set status='103' where packId=#{packId}
+         update p_order set status='103' where packId=#{packId}
     </update>
-
-
-
 
 
 </mapper>
