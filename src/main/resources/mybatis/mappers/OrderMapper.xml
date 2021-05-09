@@ -54,7 +54,7 @@
 
     <!--查询待接单数量-->
     <select id="findOrderTotals" resultType="Long" parameterType="String">
-        select count(*) from p_order where p_order.status='101'
+        select count(*) from p_order
     </select>
 
     <!--驿站全部接单-->
