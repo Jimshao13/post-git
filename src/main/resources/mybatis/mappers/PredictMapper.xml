@@ -4,10 +4,27 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.post.db.mapper.PredictMapper">
 
+    <insert id="addData" parameterType="Predict">
+        insert into p_predict_data values(#{id},#{originId},#{destinctionId},#{startTime},#{expressCompany})
+    </insert>
+
     <select id="arrivalsToday" resultType="Integer">
         select count(*)
         from p_predict_data,provinces
-        where p_predict_data.originId=provinces.provinceid AND datediff(curDate(),p_predict_data.startTime)=provinces.time;
+        where p_predict_data.originId=provinces.provinceid AND datediff("2021-05-21",p_predict_data.startTime)=provinces.time;
+    </select>
+
+
+    <select id="arrivalsTomorrow" resultType="Integer">
+        select count(*)
+        from p_predict_data,provinces
+        where p_predict_data.originId=provinces.provinceid AND datediff("2021-05-22",p_predict_data.startTime)=provinces.time;
+    </select>
+
+    <select id="arrivalsAfterTomorrow" resultType="Integer">
+        select count(*)
+        from p_predict_data,provinces
+        where p_predict_data.originId=provinces.provinceid AND datediff("2021-05-23",p_predict_data.startTime)=provinces.time;
     </select>
 
 
