@@ -27,5 +27,121 @@
         where p_predict_data.originId=provinces.provinceid AND datediff("2021-05-23",p_predict_data.startTime)=provinces.time;
     </select>
 
+    <select id="todaySF" resultType="Integer">
+        select count(*)
+        from p_predict_data,provinces
+        where p_predict_data.originId=provinces.provinceid AND datediff("2021-05-21",p_predict_data.startTime)=provinces.time
+        AND p_predict_data.expressCompany="1";
+    </select>
+
+    <select id="tomorrowSF" resultType="Integer">
+        select count(*)
+        from p_predict_data,provinces
+        where p_predict_data.originId=provinces.provinceid AND datediff("2021-05-22",p_predict_data.startTime)=provinces.time
+        AND p_predict_data.expressCompany="1";
+    </select>
+
+    <select id="afterTomorrowSF" resultType="Integer">
+        select count(*)
+        from p_predict_data,provinces
+        where p_predict_data.originId=provinces.provinceid AND datediff("2021-05-23",p_predict_data.startTime)=provinces.time
+        AND p_predict_data.expressCompany="1";
+    </select>
+
+
+    <select id="todayYT" resultType="Integer">
+        select count(*)
+        from p_predict_data,provinces
+        where p_predict_data.originId=provinces.provinceid AND datediff("2021-05-21",p_predict_data.startTime)=provinces.time
+        AND p_predict_data.expressCompany="5";
+    </select>
+
+    <select id="tomorrowYT" resultType="Integer">
+        select count(*)
+        from p_predict_data,provinces
+        where p_predict_data.originId=provinces.provinceid AND datediff("2021-05-22",p_predict_data.startTime)=provinces.time
+        AND p_predict_data.expressCompany="5";
+    </select>
+
+    <select id="afterTomorrowYT" resultType="Integer">
+        select count(*)
+        from p_predict_data,provinces
+        where p_predict_data.originId=provinces.provinceid AND datediff("2021-05-23",p_predict_data.startTime)=provinces.time
+        AND p_predict_data.expressCompany="5";
+    </select>
+
+
+    <select id="todayZT" resultType="Integer">
+        select count(*)
+        from p_predict_data,provinces
+        where p_predict_data.originId=provinces.provinceid AND datediff("2021-05-21",p_predict_data.startTime)=provinces.time
+        AND p_predict_data.expressCompany="6";
+    </select>
+
+    <select id="tomorrowZT" resultType="Integer">
+        select count(*)
+        from p_predict_data,provinces
+        where p_predict_data.originId=provinces.provinceid AND datediff("2021-05-22",p_predict_data.startTime)=provinces.time
+        AND p_predict_data.expressCompany="6";
+    </select>
+
+    <select id="afterTomorrowZT" resultType="Integer">
+        select count(*)
+        from p_predict_data,provinces
+        where p_predict_data.originId=provinces.provinceid AND datediff("2021-05-23",p_predict_data.startTime)=provinces.time
+        AND p_predict_data.expressCompany="6";
+    </select>
+
+    <select id="todayST" resultType="Integer">
+        select count(*)
+        from p_predict_data,provinces
+        where p_predict_data.originId=provinces.provinceid AND datediff("2021-05-21",p_predict_data.startTime)=provinces.time
+        AND p_predict_data.expressCompany="3";
+    </select>
+
+    <select id="tomorrowST" resultType="Integer">
+        select count(*)
+        from p_predict_data,provinces
+        where p_predict_data.originId=provinces.provinceid AND datediff("2021-05-22",p_predict_data.startTime)=provinces.time
+        AND p_predict_data.expressCompany="3";
+    </select>
+
+    <select id="afterTomorrowST" resultType="Integer">
+        select count(*)
+        from p_predict_data,provinces
+        where p_predict_data.originId=provinces.provinceid AND datediff("2021-05-23",p_predict_data.startTime)=provinces.time
+        AND p_predict_data.expressCompany="3";
+    </select>
+
+
+    <select id="todayYD" resultType="Integer">
+        select count(*)
+        from p_predict_data,provinces
+        where p_predict_data.originId=provinces.provinceid AND datediff("2021-05-21",p_predict_data.startTime)=provinces.time
+        AND p_predict_data.expressCompany="4";
+    </select>
+
+    <select id="tomorrowYD" resultType="Integer">
+        select count(*)
+        from p_predict_data,provinces
+        where p_predict_data.originId=provinces.provinceid AND datediff("2021-05-22",p_predict_data.startTime)=provinces.time
+        AND p_predict_data.expressCompany="4";
+    </select>
+
+    <select id="afterTomorrowYD" resultType="Integer">
+        select count(*)
+        from p_predict_data,provinces
+        where p_predict_data.originId=provinces.provinceid AND datediff("2021-05-23",p_predict_data.startTime)=provinces.time
+        AND p_predict_data.expressCompany="4";
+    </select>
+
+
+
+
+
+
+
+
+
 
 </mapper>

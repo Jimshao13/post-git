@@ -29,14 +29,21 @@ public class PredictServiceTest {
     }
 
     @Test
+    public void arrivalsAfterTomorrow(){
+        Integer arrivalsAfterTomorrow = predictService.arrivalsAfterTomorrow();
+        System.out.println(arrivalsAfterTomorrow);
+    }
+
+    @Test
     public void testAddData() throws ParseException {
         Predict predict=new Predict();
-        Date date = new SimpleDateFormat("yyyy-MM-dd").parse("2021-05-20");
-        predict.setOriginId("350000").setDestinctionId("320000").setStartTime(date).setExpressCompany("3");
+        Date date = new SimpleDateFormat("yyyy-MM-dd").parse("2021-05-19");
+        predict.setOriginId("440000").setDestinctionId("320000").setStartTime(date).setExpressCompany("4");
 
-        for(int i=1;i<=65;i++){
+        for(int i=1;i<=70;i++){
             predictService.addData(predict);
         }
     }
+
 
 }
