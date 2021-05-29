@@ -43,28 +43,40 @@ public class PredictServiceImpl implements PredictService{
     public Map<String, List<Integer>> arrivalsNum() {
         Map<String,List<Integer>> arrivalsNum=new HashMap<>();
         Integer todaySF = predictMapper.todaySF();
+        Integer todayYZ = predictMapper.todayYZ();
+        Integer todayJD = predictMapper.todayJD();
         Integer todayYT = predictMapper.todayYT();
         Integer todayZT = predictMapper.todayZT();
+        Integer todayHT = predictMapper.todayHT();
         Integer todayST = predictMapper.todayST();
         Integer todayYD = predictMapper.todayYD();
         List<Integer> todayNum=new ArrayList<>();
         todayNum.add(todaySF);
+        todayNum.add(todayYZ);
+        todayNum.add(todayJD);
         todayNum.add(todayYT);
         todayNum.add(todayZT);
+        todayNum.add(todayHT);
         todayNum.add(todayST);
         todayNum.add(todayYD);
         arrivalsNum.put("todayNum",todayNum);
 
 
         Integer tomorrowSF = predictMapper.tomorrowSF();
+        Integer tomorrowYZ = predictMapper.tomorrowYZ();
+        Integer tomorrowJD = predictMapper.tomorrowJD();
         Integer tomorrowYT = predictMapper.tomorrowYT();
         Integer tomorrowZT = predictMapper.tomorrowZT();
+        Integer tomorrowHT = predictMapper.tomorrowHT();
         Integer tomorrowST = predictMapper.tomorrowST();
         Integer tomorrowYD = predictMapper.tomorrowYD();
         List<Integer> tomorrowNum=new ArrayList<>();
         tomorrowNum.add(tomorrowSF);
+        tomorrowNum.add(tomorrowYZ);
+        tomorrowNum.add(tomorrowJD);
         tomorrowNum.add(tomorrowYT);
         tomorrowNum.add(tomorrowZT);
+        tomorrowNum.add(tomorrowHT);
         tomorrowNum.add(tomorrowST);
         tomorrowNum.add(tomorrowYD);
         arrivalsNum.put("tomorrowNum",tomorrowNum);
@@ -74,20 +86,23 @@ public class PredictServiceImpl implements PredictService{
 
 
         Integer afterTomorrowSF = predictMapper.afterTomorrowSF();
+        Integer afterTomorrowYZ = predictMapper.afterTomorrowYZ();
+        Integer afterTomorrowJD = predictMapper.afterTomorrowJD();
         Integer afterTomorrowYT= predictMapper.afterTomorrowYT();
         Integer afterTomorrowZT = predictMapper.afterTomorrowZT();
+        Integer afterTomorrowHT = predictMapper.afterTomorrowHT();
         Integer afterTomorrowST = predictMapper.afterTomorrowST();
         Integer afterTomorrowYD = predictMapper.afterTomorrowYD();
         List<Integer> afterTomorrowNum=new ArrayList<>();
         afterTomorrowNum.add(afterTomorrowSF);
+        afterTomorrowNum.add(afterTomorrowYZ);
+        afterTomorrowNum.add(afterTomorrowJD);
         afterTomorrowNum.add(afterTomorrowYT);
         afterTomorrowNum.add(afterTomorrowZT);
+        afterTomorrowNum.add(afterTomorrowHT);
         afterTomorrowNum.add(afterTomorrowST);
         afterTomorrowNum.add(afterTomorrowYD);
         arrivalsNum.put("afterTomorrowNum",afterTomorrowNum);
-
-
-
 
         return arrivalsNum;
     }

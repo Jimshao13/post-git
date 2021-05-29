@@ -35,15 +35,39 @@ public class PredictServiceTest {
     }
 
     @Test
-    public void testAddData() throws ParseException {
+    public void testAddData1() throws ParseException {
         Predict predict=new Predict();
-        Date date = new SimpleDateFormat("yyyy-MM-dd").parse("2021-05-19");
-        predict.setOriginId("440000").setDestinctionId("320000").setStartTime(date).setExpressCompany("4");
+        Date date = new SimpleDateFormat("yyyy-MM-dd").parse("2021-05-18");
+        predict.setOriginId("430000").setDestinctionId("320000").setStartTime(date).setExpressCompany("8");
 
-        for(int i=1;i<=70;i++){
+        for(int i=1;i<=55;i++){
             predictService.addData(predict);
         }
     }
 
+
+    @Test
+    public void testAddData2() throws ParseException {
+        Predict predict=new Predict();
+        Date date = new SimpleDateFormat("yyyy-MM-dd").parse("2021-05-19");
+        predict.setOriginId("430000").setDestinctionId("320000").setStartTime(date).setExpressCompany("8");
+
+        for(int i=1;i<=50;i++){
+            predictService.addData(predict);
+        }
+    }
+
+
+    @Test
+    public void testAddData3() throws ParseException {
+        Predict predict = new Predict();
+        Date date = new SimpleDateFormat("yyyy-MM-dd").parse("2021-05-20");
+        predict.setOriginId("430000").setDestinctionId("320000").setStartTime(date).setExpressCompany("8");
+
+        for (int i = 1; i <=40; i++) {
+            predictService.addData(predict);
+        }
+
+    }
 
 }

@@ -69,6 +69,35 @@ public interface PredictMapper {
     //预测韵达后天将到达的件量
     Integer afterTomorrowYD();
 
+    //预测京东今日到达的件量
+    Integer todayJD();
+
+    //预测京东明日到达的件量
+    Integer tomorrowJD();
+
+    //预测京东后天将到达的件量
+    Integer afterTomorrowJD();
+
+
+    //预测邮政今日到达的件量
+    Integer todayYZ();
+
+    //预测邮政明日到达的件量
+    Integer tomorrowYZ();
+
+    //预测邮政后天将到达的件量
+    Integer afterTomorrowYZ();
+
+
+    //预测百世汇通今日到达的件量
+    Integer todayHT();
+
+    //预测汇通明日到达的件量
+    Integer tomorrowHT();
+
+    //预测汇通后天将到达的件量
+    Integer afterTomorrowHT();
+
 
 
 }
