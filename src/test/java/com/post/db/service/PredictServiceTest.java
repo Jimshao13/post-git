@@ -50,9 +50,9 @@ public class PredictServiceTest {
     public void testAddData2() throws ParseException {
         Predict predict=new Predict();
         Date date = new SimpleDateFormat("yyyy-MM-dd").parse("2021-05-19");
-        predict.setOriginId("430000").setDestinctionId("320000").setStartTime(date).setExpressCompany("8");
+        predict.setOriginId("440000").setDestinctionId("320000").setStartTime(date).setExpressCompany("8");
 
-        for(int i=1;i<=50;i++){
+        for(int i=1;i<=65;i++){
             predictService.addData(predict);
         }
     }
@@ -61,10 +61,10 @@ public class PredictServiceTest {
     @Test
     public void testAddData3() throws ParseException {
         Predict predict = new Predict();
-        Date date = new SimpleDateFormat("yyyy-MM-dd").parse("2021-05-20");
-        predict.setOriginId("430000").setDestinctionId("320000").setStartTime(date).setExpressCompany("8");
+        Date date = new SimpleDateFormat("yyyy-MM-dd").parse("2021-05-21");
+        predict.setOriginId("420000").setDestinctionId("320000").setStartTime(date).setExpressCompany("5");
 
-        for (int i = 1; i <=40; i++) {
+        for (int i = 1; i <=65; i++) {
             predictService.addData(predict);
         }
 
